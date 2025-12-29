@@ -72,16 +72,31 @@ async function run() {
 
   // retrieved specific id data
 
-  const getUserById = await prisma.user.findUnique({
+  // const getUserById = await prisma.user.findUnique({
+  //   where: {
+  //     id: 1,
+  //   },
+  //   include: {
+  //     posts: true,
+  //     profile: true,
+  //   },
+  // });
+  // console.log("specific id", getUserById);
+
+  //implement  of upsert
+  const upsert = await prisma.user.upsert({
     where: {
-      id: 1,
+      email: "viratkohli@gmail.com",
     },
-    include: {
-      posts: true,
-      profile: true,
+    update: {
+      name: "IamViratK",
+    },
+    create: {
+      name: "IamViratK",
+      email: "viratkohli@gmail.com",
     },
   });
-  console.log("specific id", getUserById);
+  console.log(upsert);
 }
 
 run();
